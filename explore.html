@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Explore your market | EAMA</title>
+<meta name="description" content="Tell us where you farm and what you grow. EAMA maps the markets your produce could reach, with an indicative likelihood for each.">
+<meta name="theme-color" content="#0d3220">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>/* EAMA shared styles: Paisley-style reveals (replay on every enter/leave), split sections, forms */
+:root{--deep:#0d3220;--green:#17663d;--ink:#14231b;--accent:#d62839;--tint:#eef5ee;--mut:#5d6b62;--ease:cubic-bezier(.16,1,.3,1);--f:'Quicksand',sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font:500 16px/1.65 var(--f);color:var(--ink);overflow-x:hidden}
+a{color:inherit}button{font-family:var(--f)}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 #ff6b7855}50%{box-shadow:0 0 0 14px #ff6b7800}}
+.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-fade,.reveal-rotate{opacity:0;transition:opacity .8s var(--ease),transform .8s var(--ease);will-change:transform,opacity}
+.reveal{transform:translateY(46px)}.reveal-left{transform:translateX(-64px)}.reveal-right{transform:translateX(64px)}
+.reveal-scale{transform:scale(.88)}.reveal-rotate{transform:translateY(34px) rotate(-2.5deg) scale(.96)}
+.reveal.in,.reveal-left.in,.reveal-right.in,.reveal-scale.in,.reveal-fade.in,.reveal-rotate.in{opacity:1;transform:none}
+.float{animation:floatY 3.5s ease-in-out infinite}
+/* split sections: small text column + image */
+.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(1.5rem,5vw,4rem);align-items:center}
+.split.rev{grid-template-columns:1.1fr .9fr}.split.rev .sp-img{order:2}.split>*{min-width:0}
+.sp-img{position:relative;aspect-ratio:4/5;max-height:580px;border-radius:22px;overflow:hidden;background:var(--green)}
+.sp-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--ease)}.sp-img:hover img{transform:scale(1.07)}
+.sp-bd{position:absolute;left:1rem;bottom:1rem;right:1rem;width:fit-content;max-width:calc(100% - 2rem);background:rgba(13,50,32,.88);color:#fff;padding:.7rem 1.05rem;border-radius:12px;font:700 .82rem var(--f);backdrop-filter:blur(6px);animation:floatY 3.5s ease-in-out infinite}
+.split h2{font-size:clamp(1.5rem,2.7vw,2.3rem)}
+.split .ex{margin-top:1.4rem}.split .ex details div{grid-template-columns:1fr;gap:.6rem}
+.split .cn{gap:1.4rem .8rem;margin:1.6rem 0 1rem}.split .cn b{font-size:clamp(1.6rem,3vw,2.3rem)}
+.split .sub{color:var(--mut);max-width:30rem;margin-top:.8rem}.dark .split .sub{color:#ffffffcc}
+@media(max-width:860px){.split,.split.rev{grid-template-columns:1fr}.split.rev .sp-img{order:0}.sp-img{aspect-ratio:16/11;max-height:320px}}
+/* sub-page chrome */
+.sn{position:fixed;inset:0 0 auto;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem clamp(1.1rem,4vw,3rem);padding-top:calc(.9rem + env(safe-area-inset-top,0px));color:#fff;transition:padding .4s}
+.sn::before{content:"";position:absolute;inset:0;z-index:0;background:rgba(13,50,32,.95);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;transition:opacity .4s;pointer-events:none}
+.sn.s::before{opacity:1}
+.sn a{color:#fff;text-decoration:none}
+.sn .brand{position:relative;z-index:1;font:700 1.5rem var(--f);letter-spacing:.06em;color:#fff;text-decoration:none}.sn .brand i{color:#ff6b78;font-style:normal}
+.sn nav{position:relative;z-index:1;display:flex;gap:1.4rem;align-items:center}.sn nav a{font:700 .82rem var(--f);color:#fff;text-decoration:none;opacity:.9}.sn nav a:hover{opacity:1;text-decoration:underline}
+.sn nav a.btn{opacity:1;text-decoration:none;color:#fff}.sn nav a.btn:hover{color:var(--accent)}
+.wrap{max-width:1200px;margin:auto;padding:0 clamp(1.1rem,4vw,3rem)}
+.lab{font:700 .72rem/1 var(--f);letter-spacing:.18em;text-transform:uppercase;color:#ff6b78;margin-bottom:1rem;display:block}
+.btn{display:inline-flex;gap:.5rem;align-items:center;justify-content:center;font:700 .8rem var(--f);letter-spacing:.07em;text-transform:uppercase;padding:.95rem 1.6rem;min-height:46px;border:1.5px solid var(--accent);background:var(--accent);color:#fff;border-radius:99px;cursor:pointer;text-decoration:none;transition:transform .4s var(--ease),background .3s,color .3s}
+.btn:hover{transform:translateY(-3px);background:#fff;color:var(--accent)}.btn.k{background:transparent;color:var(--deep);border-color:var(--deep)}.btn.k:hover{background:var(--deep);color:#fff}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* forms */
+.fm{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.fm .f{grid-column:1/-1}
+.fm label,.fl2{font:700 .7rem var(--f);letter-spacing:.12em;text-transform:uppercase;display:grid;gap:.35rem;color:var(--deep)}
+.fm input,.fm select,.fm textarea{font:500 16px var(--f);padding:.8rem;border:1.5px solid #0d322033;border-radius:10px;background:#fff;color:var(--ink);width:100%;transition:border-color .3s,box-shadow .3s}
+.fm input:focus,.fm select:focus,.fm textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px #17663d22;outline:0}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}.chips label{display:inline-flex;text-transform:none;letter-spacing:0;font-size:.88rem;cursor:pointer}
+.chips input{position:absolute;opacity:0;width:1px;height:1px}
+.chips span{border:1.5px solid #0d322044;border-radius:99px;padding:.5rem 1rem;transition:.3s;font-weight:700}
+.chips label:hover span{border-color:var(--green)}.chips input:checked+span{background:var(--deep);color:#fff;border-color:var(--deep)}
+.chips input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+@media(max-width:700px){.fm{grid-template-columns:1fr}}
+.sfoot{background:#07190f;color:#ffffffcc;padding:2rem 0;font-size:.9rem;text-align:center}.sfoot a{color:#fff;text-decoration:none;border-bottom:1px solid #ffffff55}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-fade,.reveal-rotate{opacity:1;transform:none}}
+</style>
+<style>
+body{background:var(--tint)}
+.eh{background:var(--deep);color:#fff;padding:7.5rem 0 7rem;position:relative;overflow:hidden}
+.eh h1{font:700 clamp(2rem,5vw,3.8rem)/1.08 var(--f);max-width:18ch}.eh p{max-width:34rem;margin-top:1rem;opacity:.9}
+.eh::after{content:"";position:absolute;right:-8%;top:-30%;width:520px;height:520px;border-radius:50%;background:radial-gradient(#17663d,transparent 70%);animation:floatY 6s ease-in-out infinite}
+.xf{background:#fff;border-radius:22px;padding:clamp(1.2rem,3vw,2rem);margin-top:-4.5rem;position:relative;z-index:3;box-shadow:0 20px 60px #0d322033}
+.xf .fm{grid-template-columns:1.2fr 1fr 1fr}.xf .f2{grid-column:span 2}
+.pr{display:grid;grid-template-columns:1fr 110px;gap:.5rem}
+.xf .go{grid-column:1/-1;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}.xf .go small{color:var(--mut);flex:1 1 260px}
+@media(max-width:860px){.xf .fm{grid-template-columns:1fr}.xf .f2{grid-column:auto}}
+.mb{position:relative;aspect-ratio:1000/430;margin:2rem auto 0;border-radius:22px;overflow:hidden;background:#07190f;border:1px solid #ffffff22;max-width:1400px;box-shadow:0 20px 60px #0d322044}
+@media(max-width:700px){.mb{aspect-ratio:4/3}}
+#map{position:absolute;inset:0;width:100%;height:100%}#map *{vector-effect:non-scaling-stroke}
+.gr{fill:none;stroke:#fff;stroke-opacity:.07}.ld{fill:#14513a;stroke:#2f8c62;stroke-width:.7}.af{fill:#1f7a4d;stroke:#53c28b;stroke-width:.9}.wt{fill:#07190f;stroke:#2f8c62;stroke-width:.6}
+.rt{fill:none;stroke:#ff6b78;stroke-linecap:round;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:dr 1.6s var(--ease) forwards}@keyframes dr{to{stroke-dashoffset:0}}
+.fl{fill:none;stroke:#fff;stroke-width:2;stroke-dasharray:2 11;opacity:.8;animation:fw 1s linear infinite}@keyframes fw{to{stroke-dashoffset:-13}}
+.pu{fill:none;stroke:#ff6b78;stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:pl 2.2s ease-out infinite}@keyframes pl{from{transform:scale(.4);opacity:1}to{transform:scale(2.6);opacity:0}}
+.dt{fill:#fff}.tx{fill:#fff;font:700 10px var(--f);paint-order:stroke;stroke:#07190f;stroke-width:3px;stroke-linejoin:round}.jet{fill:#fff;stroke:#d62839;stroke-width:.8}
+.ov{position:absolute;left:1rem;bottom:1rem;background:#0d3220e6;color:#fff;border-radius:12px;padding:.6rem .9rem;font-size:.8rem;max-width:min(26rem,90%)}
+.lg{display:flex;gap:1.2rem;flex-wrap:wrap;margin:1rem 0 0;font-size:.85rem;color:var(--mut)}.lg b{display:inline-block;width:26px;height:4px;border-radius:3px;background:var(--accent);vertical-align:middle;margin-right:.4rem}
+#rs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;margin:2rem 0 1rem}
+.rc{background:#fff;border-radius:16px;padding:1.1rem 1.2rem;border-top:4px solid var(--accent)}.rc.m{border-color:#e0a030}.rc.l{border-color:#9bb3a5}
+.rc h3{font:700 1.15rem var(--f);display:flex;justify-content:space-between;gap:.5rem}.rc h3 em{font-style:normal;color:var(--accent)}
+.bar{height:8px;border-radius:8px;background:#0d322018;margin:.6rem 0;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#ff6b78);width:0;transition:width 1.2s var(--ease)}
+.rc p{font-size:.88rem;color:var(--mut)}.rc small{font:700 .68rem var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--deep)}
+.note{font-size:.8rem;color:var(--mut);max-width:60rem}
+.nx{background:var(--deep);color:#fff;border-radius:22px;padding:clamp(1.6rem,4vw,2.6rem);margin:2.5rem 0 4rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.nx h2{font:700 clamp(1.4rem,2.6vw,2rem) var(--f);max-width:24ch}.nx .btn:hover{background:#fff}
+</style></head><body>
+<header class="sn" id="sn"><a class="brand" href="index.html" aria-label="EAMA home">EAMA<i>.</i></a><nav aria-label="Primary"><a href="index.html">Home</a><a href="contact.html" class="btn" style="padding:.55rem 1.1rem;min-height:38px">Get onboarded</a></nav></header>
+<section class="eh"><div class="wrap"><span class="lab reveal">Market explorer</span><h1 class="reveal" style="transition-delay:.1s">Where could your harvest go?</h1><p class="reveal" style="transition-delay:.2s">Tell us where you farm, what you grow and how much. We'll chart the markets worth researching first, with an indicative likelihood for each.</p></div></section>
+<main class="wrap">
+<form class="xf reveal-scale" id="xf" novalidate><div class="fm">
+ <label>Where is your farm or factory?<input id="loc" list="pl" placeholder="e.g. Kericho, Nyeri, Meru" autocomplete="off" required></label>
+ <label>Average production<span class="pr"><input id="vol" type="number" min="0" step="any" placeholder="e.g. 40" required><select id="un" aria-label="Unit"><option value="1">t / year</option><option value="12">t / month</option><option value=".001">kg / year</option></select></span></label>
+ <label>Main buyers today<select id="cur"><option>Local traders only</option><option>Regional buyers</option><option>Some exports</option><option>Regular exporter</option></select></label>
+ <div class="f fl2">What do you produce?<div class="chips" id="pd"><label><input type="checkbox" value="0"><span>Tea</span></label><label><input type="checkbox" value="1"><span>Coffee</span></label><label><input type="checkbox" value="2"><span>Avocado</span></label><label><input type="checkbox" value="3"><span>Macadamia</span></label><label><input type="checkbox" value="4"><span>Horticulture</span></label></div></div>
+ <div class="go"><button class="btn" type="submit">Explore my markets ↗</button><small id="er" role="status">Pick a location, a volume and at least one product.</small></div>
+</div><datalist id="pl"></datalist></form>
+
+<div class="mb reveal"><svg id="map" viewBox="0 0 1000 430" role="img" aria-label="World map showing jet routes from your location to likely markets"></svg><div class="ov" id="ov">Your routes will appear here. Press Explore.</div></div>
+<div class="lg"><span><b></b>Route thickness = likelihood</span><span>✈ Jets follow real great-circle paths</span></div>
+<div id="rs" aria-live="polite"></div>
+<p class="note">Likelihoods are indicative research signals from product-market fit, distance and your volume. They are not forecasts, price quotes or guarantees of buyers or contracts. Map outlines are simplified.</p>
+<div class="nx reveal-scale"><h2>Found a market worth chasing? Let's make you ready for it.</h2><a class="btn" href="contact.html">Get onboarded ↗</a></div>
+</main>
+<footer class="sfoot">EAMA · Ruiru, Kenya · <a href="tel:+254719667328">+254 719 667 328</a> · <a href="mailto:eamagropro@gmail.com">eamagropro@gmail.com</a></footer>
+
+<script>var AF="-5.9,35.8 -2.9,35.2 -0.6,35.7 3,36.8 7.8,36.9 9.8,37.3 11,37.1 10.6,36.4 10.1,35.7 11,35 10.1,34.2 11.1,33.3 13.2,32.9 15.2,32.4 15.7,31.4 18.5,30.3 20,30.9 20.1,32.1 21.7,32.9 22.6,32.8 24.9,32 25.2,31.6 29,30.9 29.9,31.2 31,31.6 32.3,31.3 32.6,29.9 33.8,27.2 34.5,25.5 35.5,23.9 37.2,19.6 39.5,15.6 42.7,13 43.1,11.6 45,10.4 47,11.2 49.2,11.3 51.3,11.8 51.2,10.5 50.8,9.4 49.9,8 48.5,5.3 45.3,2 42.5,-0.4 40.9,-2.3 39.7,-4 39.3,-6.8 40.2,-10.3 40.5,-12.9 40.7,-14.5 36.9,-17.9 34.9,-19.8 35.5,-24 32.6,-26 31,-29.9 27.9,-33 25.6,-34 20,-34.8 18.4,-33.9 17.9,-33 15.2,-26.6 14.5,-22.9 12.1,-15.2 13.4,-12.6 13.2,-8.8 12.2,-6 11.8,-4.8 8.8,-0.7 9.4,0.4 9.7,4 8.3,4.9 6,4.3 3.4,6.4 -0.2,5.5 -2.1,4.7 -4,5.3 -7.7,4.4 -10.8,6.3 -13.2,8.5 -13.7,9.5 -15.6,11.9 -17.5,14.7 -16,18.1 -17,20.8 -15.9,23.7 -13.2,27.1 -9.6,30.4 -9.8,31.5 -7.6,33.6 -6.8,34 -6.1,35.2";
+var MD="49.3,-12 50.2,-15.4 49.4,-18.2 48.3,-21.2 47.8,-22.8 47,-25 45.1,-25.6 43.7,-23.4 43.3,-21.5 44.3,-20.3 46.3,-15.7 47.6,-14 48.3,-13.4";
+var EA="1.8,51 3.5,51.4 4.2,52 4.8,53 6.8,53.5 8.7,53.9 8.1,55.5 8.4,56.9 10.6,57.7 10.4,56.4 9.8,55.6 9.9,54.9 10.2,54.4 11,54.1 12.5,54.4 14.2,53.9 16.5,54.5 18.7,54.4 19.8,54.5 21.1,55.2 21,56.5 21.6,57.6 23,57.1 24.2,57 24.4,58.3 23.5,59.2 26,59.5 28,59.5 30.2,59.9 28.5,60.5 25,60.2 23,59.9 21.4,60.5 21.5,61.7 21.2,63 22.5,64 24.6,65 25.4,65.3 24.1,65.8 22.2,65.6 21,64.5 19,63.2 17.4,62.5 17.2,61 18.8,60 18.7,59.4 17,58.7 16.5,57 16,56.2 14.3,56.1 13,55.4 12.7,56 11.9,57.7 11.2,59 10.6,59.9 10,59 8.5,58.2 7,58 5.6,59 5,60.5 5.3,62 7,62.8 10,63.5 12,65.5 14.4,67.3 16.5,68.5 19,69.7 23,70.4 25.8,71.1 29,70.9 31,70.3 33,69.4 36,69 41,67 39.5,66 36,66.2 34.5,64.8 37.5,64 40.5,64.6 40.8,66 44,66.5 44,68.5 46.5,67.8 53,68.7 58,68.8 60.5,69.8 67,69.2 68.5,72 72.5,72.8 72.8,69 75,72 80.5,73.5 87,75 95,76 104,77.7 107,76.5 113.5,74 113,73.4 120,73 126.5,73.5 129.5,71 133,71.5 140,72.5 150,71.5 160,69.7 170,70 180,68.9 180,65.2 176.5,64.8 173,64.3 178,62.4 175,61.5 170,60 166,60 163.5,59.8 163,57 162,54.7 160,53.1 156.7,51 155.8,54 156,57.5 158.5,58.5 160.5,61 157,61.8 154,59.2 151,59.2 148,59.4 143,59.3 140,57.5 137,54.5 141,53.2 140.5,50 138.5,47 135.5,43.5 132,43.1 130.5,42.3 129.7,41 128,39.5 129.4,37 129.4,35.4 128.5,34.8 126.5,34.4 126.5,36.5 125.3,37.7 125.2,39.5 124.4,40 122,40.4 121,40.9 119.5,39.8 118,39.1 117.7,38.5 119,37.2 120.8,37.8 122.6,37.3 120.5,36 119.2,35 121,32.5 121.9,31 122,29.8 121,28 119.5,26 118,24.5 116.5,23.2 114.2,22.3 111.5,21.5 110.4,20.3 109.8,21.4 108,21.6 106.7,20.6 105.8,19 106.5,17.5 108,16 109.3,13.5 109.2,11.5 107,10.4 105,8.6 104.8,10.2 103.5,10.5 102.5,12.2 100.9,13.4 100,13.4 99.9,12 99.2,10 100.3,8.2 101.2,6.9 102.5,5.5 103.4,4.5 103.5,2.5 104.2,1.4 103.4,1.4 101.3,2.8 100.3,5.4 98.4,8.2 98.3,10.5 98.6,12.5 97.6,16 94.5,16 94.3,18 93,19.9 92,21.5 91,22.5 89.5,21.9 87,21.6 86.8,20.3 85,19.5 83.3,17.7 82,16.5 80.2,15 80.3,13.1 79.8,10.3 79.2,9.3 77.5,8.1 76.3,9.9 75,12.5 74,15 73,17.5 72.8,19 72.7,21 70.5,20.8 69,22.3 70.2,23 68.5,23.5 67.3,24.8 66.5,25.4 62.3,25.2 61.5,25.1 57.5,25.6 56.8,27.1 55.5,26.9 54,26.7 52.5,27.5 51,28.8 50.2,30 49,30.3 48,30 48.8,28 50.2,26.5 50.7,25 50.8,24.8 51.2,26.1 51.6,25.2 52.6,24.2 54.4,24.3 55.3,25.3 56.1,26 56.4,26.4 56.3,25.5 56.8,24 58.6,23.6 59.8,22.5 58.8,20.5 57.8,19 55.5,17.5 54.1,17 52,16 49.1,14.5 45,12.8 43.4,12.7 42.8,14.5 42.7,15.7 42.4,17 41,19.5 39.2,21.5 38,24.1 36.5,26 35,28 35,29.5 34.2,27.8 33.5,28.5 32.6,29.9 32.3,31.3 34.2,31.3 34.8,32.5 35.5,33.9 35.9,35.5 36.2,36.6 34.6,36.8 32.5,36.1 30.6,36.8 29,36.7 27.4,37 26.4,38.2 26.7,39.3 26.2,40.1 26,40.8 24,40.8 22.9,40.5 22.6,39.4 23.2,38.5 24,37.7 23.2,36.5 22.5,36.4 21.7,36.9 21.2,37.9 21.5,38.4 20.8,39.4 19.9,40 19.4,41 19.4,41.8 18.5,42.4 17,43.1 15.9,43.7 14.5,45.2 13.7,45.6 12.3,45.4 12.3,44.4 13.5,43.6 14.5,42.2 16,41.9 16.9,41.1 18.5,40.1 17.2,40.4 16.6,39.6 17.1,39 16,37.9 15.7,38 15.9,39.8 15.7,40 14.2,40.8 12.4,41.8 10.5,42.9 8.9,44.4 7.3,43.7 5.4,43.3 3.1,43.1 3.2,42 2.2,41.4 0.8,40.8 -0.3,39.5 0.2,38.7 -0.9,37.6 -2.5,36.8 -4.4,36.7 -5.4,36.1 -6.3,36.5 -7.4,37.2 -8.9,37 -9,37.1 -9.5,38.7 -8.7,41.2 -9.3,43 -8,43.7 -4,43.4 -1.8,43.4 -1.2,44.7 -1.5,46.2 -2.5,47.3 -4.7,48.4 -3,48.8 -1.6,48.7 -1.6,49.6 0.1,49.5 1.6,50.2";
+var NA="-168,65.6 -166,68.3 -162,70.3 -156.5,71.3 -148,70.3 -141,69.7 -135,69.3 -128,70.2 -121,69.5 -114,68 -108,68.2 -98,68 -94.5,71.9 -86,69.5 -82.5,69.5 -81,67 -87,64 -93,61.5 -94.2,58.8 -92.5,57 -85,55.3 -82.3,55.2 -82,53 -79.5,51.5 -78.8,53.5 -77,56 -78,58.5 -78,62 -73,62 -71,61 -69.5,59 -65.5,60.3 -61.5,56.5 -57.5,54 -55.7,52.2 -55.5,51.5 -60,50.2 -66.5,50.2 -67.5,49.2 -64.2,48.8 -64.8,46.8 -62,46.2 -60.2,46.7 -60,45.9 -61.3,45.1 -63.5,44.6 -65.8,43.6 -66.1,44.6 -66,45.2 -67,44.7 -68.5,44.3 -70.2,43.6 -71,42.3 -70,41.8 -71.5,41.4 -74,40.6 -74,39.7 -75.1,38.4 -76,37 -75.5,35.2 -77.9,33.9 -79.9,32.7 -81,32 -81.4,30.3 -80.5,28.4 -80.1,25.8 -81.1,25.1 -81.8,26.1 -82.8,27.8 -82.7,29 -84,30 -85.5,29.7 -87,30.4 -88,30.2 -89.2,29 -91,29.3 -93.8,29.7 -95,29.2 -97.2,27.8 -97.4,25.9 -97.8,22.3 -96.2,19.2 -94.4,18.2 -92,18.7 -90.5,19.9 -90.3,21 -87,21.5 -86.8,21.2 -87.4,19.5 -88.2,17.4 -87.5,15.8 -85,15.9 -83.3,15 -83.7,12 -83.7,10.9 -83,9.9 -81.5,9 -79.5,9.6 -77.4,8.6 -77.3,8 -78.5,8.2 -79.5,8.9 -80.5,7.4 -80.4,7.2 -82.9,8 -83.7,8.6 -85.7,10 -85.7,10.5 -87.7,13.1 -89.2,13.5 -91.5,14 -93.8,15.8 -95.2,16.2 -97,15.8 -99.9,16.8 -102,18 -105.4,20.2 -106.4,23.2 -109.5,25.8 -110.8,27.9 -112.5,30 -114.8,31.7 -114.2,30.5 -113.5,29 -112.3,27.3 -111.3,26 -110.3,24.2 -109.8,22.9 -112.2,24.8 -114,27.5 -115.8,29.8 -116.8,32.5 -117.2,32.7 -118.4,33.8 -120.5,34.5 -122.5,37.5 -123,38.8 -124.4,40.4 -124.1,43 -124,46.2 -124.7,48.4 -123.2,49.3 -127.5,51 -130,54 -130.3,54.3 -134,58 -137,59 -141,59.9 -145.5,60.5 -148,60 -151.5,59.2 -152,60.8 -157,58.5 -162,55 -165,54.7 -162,58.5 -165.5,60.5 -165,62.5 -161.5,64.4 -166,64.5";
+var SA="-77.4,8.6 -75.5,10.4 -74.8,11 -71.3,12.4 -70,12.2 -68,10.5 -66.9,10.6 -64,10.6 -61.5,10.7 -60.8,8.6 -58.3,6.8 -55.2,5.9 -52.3,4.9 -51,4 -50,1 -50.5,0 -48.5,-1 -44.3,-2.5 -41.5,-2.9 -38.5,-3.7 -35.2,-5.3 -34.8,-7 -34.9,-8.1 -35.5,-9.5 -38.5,-13 -39,-17.7 -40.3,-20.3 -43.2,-23 -45.5,-23.8 -46.3,-24 -48.5,-26 -48.5,-27.6 -50,-31 -52.1,-32.2 -56.2,-34.9 -58.4,-34.6 -57,-36 -57.5,-38 -62.3,-38.8 -65,-41 -63.6,-42.5 -65,-45 -67.5,-46 -68.3,-50 -69,-52 -68.4,-52.4 -66,-54.9 -67.3,-55.9 -71.5,-54 -74.5,-52 -75,-50 -75.5,-47 -74,-43.5 -73.8,-42 -73.5,-40 -73.4,-37.5 -73.2,-36.7 -71.6,-33 -71.5,-30 -70.5,-27 -70.4,-23.6 -70.3,-18.5 -71.5,-17.2 -77.1,-12 -79.5,-7.2 -81.2,-5 -80,-2.5 -80.9,-1 -80,0.5 -78.8,1.8 -77.1,3.9 -77.5,6 -77.3,8";
+var AU="142.5,-10.7 143.5,-14 145.8,-16.9 146.8,-19.3 149.2,-21.1 150.8,-23.5 153.1,-27.4 153.6,-28.6 151.3,-33.9 150,-37.1 146.4,-39.1 144.9,-38.3 141,-38.4 139.5,-36 138.5,-35.5 138,-34.8 137.5,-33.5 136.5,-34.5 135.9,-34.7 131,-31.5 129,-31.7 124,-33.5 121.9,-33.9 117.9,-35 115.1,-34.4 115.7,-32 114.6,-28.8 113.4,-25.8 114.1,-21.8 118.6,-20.3 122.2,-18 125,-14.5 126.9,-13.8 130.8,-12.5 135,-12 136.9,-12.2 136,-14 135.5,-15 139.5,-17.5 141.5,-15 141.7,-12.5";
+var OT=["145.2,-40.8 148.3,-40.9 148,-43 146,-43.6 145.5,-42.5","-73,78 -62,82 -40,83.5 -20,81.5 -18,77 -22,70 -30,68 -40,65 -43.9,59.8 -50,62 -53.5,66 -55,70 -58,75 -66,76.5","-5.7,50.1 -3,50.7 1.4,51.2 1.7,52.7 0.3,53.5 -0.1,54.2 -1.5,55.5 -2,57.5 -3,58.6 -5,58.6 -5.8,57.5 -6,56.5 -5.2,55.5 -3,54.9 -3.1,53.4 -4.6,52.8 -4.3,51.6 -5.2,51.7 -3.5,51.2","-6,52.2 -6.1,53.5 -5.7,54.5 -7.5,55.2 -10,54.2 -9.8,53 -10.3,51.8 -8.5,51.6 -6.4,52.2","-22,64 -18,63.4 -14,64.4 -13.5,65.5 -16,66.5 -22.5,66.2 -24,65.5","130.9,34 132.5,35.5 135.5,35.6 137,37 139.5,38.5 140,40.5 141.5,41.3 142,39.5 141,37 140.8,35.7 139.8,35 138.5,34.6 136.9,34.6 135.5,33.5 134.8,34.6 132.5,34.2","140,41.5 140.4,43.2 141.7,45.4 144.5,43.9 143.3,42 141.2,42.5","129.8,33.5 131.5,34 131.9,32.5 131,31.2 130.2,31.3 129.8,32.6","132.5,34 134.5,34.2 134,33.4 132.7,32.9","121,25 121.9,25.1 121.5,23.5 120.9,22 120.1,23 120.6,24.5","79.8,9.5 80.8,9 81.9,7.5 81.2,6.2 80,6 79.8,7.5","120.5,18.5 122.2,18.5 121.6,16.2 122.2,14.2 124,13 122.5,13.8 121,13.7 120.6,14.5 119.8,16","122,7 125.5,9.8 126.5,7 125.5,5.8 123.5,7.4","95.3,5.6 98,4 100.5,2 103.5,-0.5 104.5,-2.5 106,-3.2 105.8,-5.8 104.5,-5.9 102.3,-4 100.3,-0.8 99,1.7 97.5,3.5","105.2,-6.8 106.8,-6 108.5,-6.7 111,-6.5 112.7,-6.9 114.4,-7.8 114.5,-8.7 112,-8.3 110,-8 108,-7.8 106,-7.3","109,1.5 111,1.7 113,3.2 116,6.8 117.5,7 119.2,5.3 117.7,3.5 118.5,1 117.5,-0.5 116.5,-2.5 116,-4 114.5,-3.8 111.5,-3.3 110.2,-2.9 109,-1","118.9,-2.8 119.8,-5.5 121.5,-4.5 123,-4.7 121.8,-2.5 123.2,-0.8 121.5,0.4 125,1.5 120,1 119,-0.5","131,-0.8 134,-0.8 135.5,-3.3 138,-1.8 141,-2.6 145,-4.5 147.5,-6 147.8,-7.8 150.5,-10.5 147,-9 143.5,-8.8 141,-9.1 138,-8.4 137.8,-5.5 135,-4 133,-4 132,-2.8","172.7,-34.5 175,-37 178.5,-37.7 177,-39.5 175,-41.5 174.8,-39.5 173.8,-39.2 174.5,-37","172.7,-40.5 174,-41.7 172.8,-43.7 171.2,-44.4 170.5,-46 168.4,-46.6 166.5,-46 168,-44 170.5,-43 172.5,-40.5","-85,21.8 -82,23.2 -79,22.5 -77,21 -74.2,20.2 -77.5,19.9 -80,22 -82.9,22.2","-74.5,18.4 -72,19.9 -68.4,18.5 -71.5,17.8 -74.5,18.2","-59.3,47.6 -56,47.3 -52.7,47.5 -53.5,49 -55.5,51.6 -57.5,50.5","-80,73.7 -75,72 -68,70 -62,66.7 -65,63.5 -72,63.5 -78,64.5 -73,68.5 -84,70 -88,73","-118,70 -112,69 -105,69.2 -101,69.5 -104,72 -112,73 -118,72","-90,76.5 -78,76 -70,78 -64,81 -75,83 -90,81.5 -92,79","51,71 54,73 58,75.5 68,77 66,75 58,74 56,72 54,70.8","11,78.5 17,76.8 23,77.5 20,80 14,80","142,46 143.5,49 143.2,53.5 142.2,54.3 141.7,50","12.5,38.1 15.6,38.3 15.1,36.7 12.5,37.8","8.2,41 9.7,41 9.6,39.2 8.4,39","8.6,42.5 9.5,43 9.4,41.4","23.5,35.4 26.3,35.3 24,35","32.3,35 34.5,35.7 33.9,34.9 32.5,34.7"];
+var WT=["28,41.2 28.7,43.5 30,45.5 31.5,46.6 33.5,46 33.5,45.2 33,44.6 35.5,45.1 37,44.9 37.5,44.6 39.7,43.5 41.6,42 41.5,41.5 39,41 36,41.7 33,42 31,41.2 29.2,41.2","47,45 49,46.5 51,47 53,46.7 53,44 51,43 51.5,41.5 53,40 53.8,38.5 53.8,37.3 51,36.8 49,37.5 48.7,38.5 49.5,40.4 50.3,40.4 48.6,41.8 47.5,43","31.8,-0.2 33,0.3 34,0.2 34,-1 33.8,-2.5 32.8,-2.8 31.8,-1.5","29.2,-3.4 30,-4.5 31.2,-8 30,-8.4 29.5,-6","34.3,-9.5 34.8,-11 35.5,-13.8 34.8,-14 34,-11"];
+</script><script>/* EAMA animations. Reveals replay each time an element enters/leaves the viewport (Paisley style).
+   The value-chain journey (.jw, .st, #jf) is deliberately NOT touched. */
+(function(){
+var A=function(s){return[].slice.call(document.querySelectorAll(s))};
+[['.gaps>div','reveal-rotate'],['.pc','reveal-scale'],['.cn>div','reveal-scale'],['.stp span','reveal-rotate'],['.ex details','reveal-right'],['.rc','reveal-rotate']]
+.forEach(function(p){A(p[0]).forEach(function(e,i){e.classList.add(p[1]);e.style.transitionDelay=(i%6*90)+'ms'})});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('in',e.isIntersecting)})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+window.eamaReveal=function(root){A('.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-fade,.reveal-rotate').forEach(function(e){if(!e.__o){e.__o=1;io.observe(e)}})};
+eamaReveal();
+var sn=document.querySelector('.sn');if(sn){var f=function(){sn.classList.toggle('s',scrollY>40)};addEventListener('scroll',f,{passive:true});f()}
+})();
+</script>
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)},K=1000/360,m=$('#map'),rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function P(a){return[(a[0]+180)*K,(84-a[1])*K]}
+function D(s){return'M'+s.trim().split(/\s+/).map(function(t){var a=t.split(','),p=P([+a[0],+a[1]]);return p[0].toFixed(1)+' '+p[1].toFixed(1)}).join('L')+'Z'}
+function gc(a,b,n){var r=Math.PI/180,v=function(p){var x=p[0]*r,y=p[1]*r;return[Math.cos(y)*Math.cos(x),Math.cos(y)*Math.sin(x),Math.sin(y)]},A=v(a),B=v(b),d=Math.acos(Math.max(-1,Math.min(1,A[0]*B[0]+A[1]*B[1]+A[2]*B[2]))),o=[],pl=null;for(var i=0;i<=n;i++){var t=i/n,s1=Math.sin((1-t)*d)/Math.sin(d),s2=Math.sin(t*d)/Math.sin(d),x=s1*A[0]+s2*B[0],y=s1*A[1]+s2*B[1],z=s1*A[2]+s2*B[2],lo=Math.atan2(y,x)/r,la=Math.atan2(z,Math.sqrt(x*x+y*y))/r;if(pl!==null){while(lo-pl>180)lo-=360;while(lo-pl<-180)lo+=360}pl=lo;o.push([lo,la])}return o}
+function km(a,b){var r=Math.PI/180,dl=(b[1]-a[1])*r,dn=(b[0]-a[0])*r,h=Math.pow(Math.sin(dl/2),2)+Math.cos(a[1]*r)*Math.cos(b[1]*r)*Math.pow(Math.sin(dn/2),2);return 12742*Math.asin(Math.sqrt(h))}
+/* Places in Kenya's growing regions [lon,lat] */
+var PL={'ruiru':[36.96,-1.15],'nairobi':[36.82,-1.29],'kiambu':[36.83,-1.17],"murang'a":[37.15,-0.72],'nyeri':[36.95,-0.42],'kirinyaga':[37.3,-0.5],'embu':[37.45,-0.53],'meru':[37.65,0.05],'kericho':[35.28,-0.37],'bomet':[35.34,-0.78],'nandi':[35.1,0.2],'eldoret':[35.27,0.52],'kisii':[34.77,-0.68],'kakamega':[34.75,0.28],'bungoma':[34.56,0.57],'machakos':[37.26,-1.52],'makueni':[37.62,-1.8],'taita taveta':[38.35,-3.4],'kilifi':[39.85,-3.63],'mombasa':[39.67,-4.04],'nakuru':[36.07,-0.3],'laikipia':[36.78,0.4],'thika':[37.07,-1.03]};
+var dl='';Object.keys(PL).forEach(function(k){dl+='<option value="'+k.replace(/\b\w/g,function(c){return c.toUpperCase()})+'">'});$('#pl').innerHTML=dl;
+/* hubs: name, lon, lat, [tea,coffee,avocado,macadamia,horticulture] affinity 0-100 (illustrative) */
+var PN=['tea','coffee','avocado','macadamia','horticulture produce'],H=[
+['Karachi',67,24.9,[95,5,5,5,10],'Pakistan is one of the largest buyers of Kenyan tea.'],['Dubai',55.3,25.2,[80,40,55,60,60],'A re-export hub with broad appetite.'],['Cairo',31.2,30.1,[85,30,25,20,30],'Egypt is a long-standing tea destination.'],['London',-0.1,51.5,[60,55,45,40,70],'Deep specialty and retail buyer pool.'],
+['Amsterdam',4.9,52.4,[35,60,92,45,90],'Europe\'s gateway for fresh produce.'],['Milan',9.2,45.5,[25,75,60,45,50],'Strong coffee culture and roasters.'],['Casablanca',-7.6,33.6,[30,5,20,10,15],'North African entry point.'],['Lagos',3.4,6.45,[40,10,15,15,20],'Large West African consumer market.'],
+['Johannesburg',28.2,-26.1,[30,25,30,55,35],'Regional hub with nut and fresh demand.'],['Dakar',-17.5,14.7,[20,5,10,5,10],'West African coastal gateway.'],['Mumbai',72.9,19.1,[25,15,30,60,25],'Large nut and fruit demand.'],['Singapore',103.8,1.35,[20,30,35,55,30],'Asian distribution hub.'],
+['Shanghai',121.5,31.2,[35,40,40,85,25],'Fast-growing premium nut demand.'],['New York',-74,40.7,[25,65,45,50,30],'Specialty coffee and natural foods.'],['Toronto',-79.4,43.7,[20,45,30,35,20],'Diverse import market.'],['Miami',-80.2,25.8,[10,35,50,40,35],'Gateway for avocado and fresh trade.'],['São Paulo',-46.6,-23.5,[5,10,10,10,5],'Mostly a competitor origin; low fit.']];
+var s='<defs><path id="jet" d="M0,-7 L1.2,-2 L7,1 L7,2.5 L1.2,1 L1,5 L3,6.5 L3,7.5 L0,6.8 L-3,7.5 L-3,6.5 L-1,5 L-1.2,1 L-7,2.5 L-7,1 L-1.2,-2Z"/></defs>',g='';
+for(var lo=-180;lo<=180;lo+=30)g+='M'+P([lo,84]).join(' ')+'L'+P([lo,-60]).join(' ');for(var la=-60;la<=80;la+=20)g+='M0 '+P([0,la])[1]+'L1000 '+P([0,la])[1];
+s+='<path class="gr" d="'+g+'"/><path class="ld" d="'+[EA,NA,SA,AU].map(D).join('')+OT.map(D).join('')+'"/><path class="af" d="'+D(AF)+D(MD)+'"/><path class="wt" d="'+WT.map(D).join('')+'"/><g id="rg"></g><g id="jg"></g>';
+m.innerHTML=s;
+var RT=[],raf=0;
+function tier(v){return v>=70?['High','']:v>=45?['Medium','m']:['Exploratory','l']}
+function run(e){e.preventDefault();
+ var key=$('#loc').value.trim().toLowerCase(),o=PL[key],pr=[].slice.call(document.querySelectorAll('#pd input:checked')).map(function(i){return+i.value}),vol=parseFloat($('#vol').value)*parseFloat($('#un').value),er=$('#er'),msg='';
+ if(!key||isNaN(vol)||!pr.length){er.textContent='Please add a location, a production volume and at least one product.';return}
+ if(!o){var q=key.split(/[ ,]+/).map(parseFloat);if(q.length===2&&!isNaN(q[0])&&!isNaN(q[1]))o=[q[1],q[0]];else{o=PL.ruiru;msg=' (location not recognised, using Ruiru as the origin)'}}
+ var cur=$('#cur').selectedIndex,res=H.map(function(h){var a=pr.map(function(p){return h[3][p]}),best=Math.max.apply(0,a),bi=a.indexOf(best),d=km(o,[h[1],h[2]]),f=vol<5?1-Math.min(d/16000,1)*.35:vol>100?1.05:1,sc=Math.round(Math.min(97,(best+Math.min(8,(a.length-1)*4))*f)+(cur>1?3:0));return{n:h[0],ll:[h[1],h[2]],sc:Math.min(97,sc),p:PN[pr[bi]],w:h[4],d:d}}).sort(function(a,b){return b.sc-a.sc}).slice(0,8);
+ var oo=P(o),rg='',jg='';RT=[];
+ res.forEach(function(r,i){var pts=gc(o,r.ll,60).map(P),len=0;for(var k=1;k<pts.length;k++)len+=Math.hypot(pts[k][0]-pts[k-1][0],pts[k][1]-pts[k-1][1]);var d='M'+pts.map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1)}).join('L'),en=pts[pts.length-1],w=(1+r.sc/32).toFixed(1);
+  RT.push({pts:pts,sp:1/(5+len/70),ph:i*.13,a:$('#__x')});
+  rg+='<path class="rt" style="--l:'+Math.ceil(len+20)+';stroke-width:'+w+';stroke-opacity:'+(.35+r.sc/160).toFixed(2)+';animation-delay:'+(i*.15)+'s" d="'+d+'"/><path class="fl" d="'+d+'"/><circle class="pu" cx="'+en[0].toFixed(1)+'" cy="'+en[1].toFixed(1)+'" r="5" style="animation-delay:'+(i*.2)+'s"/><circle class="dt" cx="'+en[0].toFixed(1)+'" cy="'+en[1].toFixed(1)+'" r="3"/><text class="tx" x="'+(en[0]+6).toFixed(1)+'" y="'+(en[1]-6).toFixed(1)+'">'+r.n+' '+r.sc+'%</text>';
+  jg+='<use href="#jet" class="jet" id="j'+i+'a"/><use href="#jet" class="jet" id="j'+i+'b"/>'});
+ rg+='<circle cx="'+oo[0]+'" cy="'+oo[1]+'" r="4.5" fill="#fff" stroke="#d62839" stroke-width="2"/><text class="tx" x="'+(oo[0]+7)+'" y="'+(oo[1]+15)+'">'+($('#loc').value.trim()||'Origin')+'</text>';
+ $('#rg').innerHTML=rg;$('#jg').innerHTML=jg;RT.forEach(function(r,i){r.j=[$('#j'+i+'a'),$('#j'+i+'b')]});
+ var hi=res.filter(function(r){return r.sc>=70}).length;
+ $('#ov').textContent=hi?hi+' high-likelihood market'+(hi>1?'s':'')+' found for your '+pr.map(function(p){return PN[p]}).join(', ')+'.':'No standout markets yet. Start with the exploratory routes and regional options.';
+ er.textContent='Showing your top '+res.length+' routes.'+msg;
+ $('#rs').innerHTML=res.map(function(r){var t=tier(r.sc);return'<article class="rc reveal-rotate '+t[1]+'"><small>'+t[0]+' likelihood</small><h3>'+r.n+'<em>'+r.sc+'%</em></h3><div class="bar"><i data-w="'+r.sc+'"></i></div><p>Best fit: '+r.p+'. '+r.w+' About '+Math.round(r.d/100)*100+' km away.</p></article>'}).join('');
+ eamaReveal();setTimeout(function(){document.querySelectorAll('.bar i').forEach(function(b){b.style.width=b.dataset.w+'%'})},300);
+ $('.mb').scrollIntoView({behavior:rm?'auto':'smooth',block:'center'});
+ if(!raf&&!rm)raf=requestAnimationFrame(frame);if(rm)frame(0)}
+function frame(now){var u=1000/m.clientWidth,sc=(innerWidth<700?18:22)/14*u*1.1,T=now/1000;RT.forEach(function(r){var n=r.pts.length-1;r.j.forEach(function(el,j){var t=(T*r.sp+r.ph+j*.5)%1,q=t*n,i0=Math.min(Math.floor(q),n-1),f=q-i0,a=r.pts[i0],b=r.pts[i0+1],x=a[0]+(b[0]-a[0])*f,y=a[1]+(b[1]-a[1])*f,ang=Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI+90;el.setAttribute('transform','translate('+x.toFixed(1)+' '+y.toFixed(1)+') rotate('+ang.toFixed(1)+') scale('+sc.toFixed(3)+')');el.style.opacity=Math.min(1,t*10,(1-t)*10).toFixed(2)})});if(!rm)raf=requestAnimationFrame(frame)}
+$('#xf').addEventListener('submit',run);
+/* ?ctx=Tea pre-selects a product when arriving from a CTA */
+var c=(new URLSearchParams(location.search).get('ctx')||'').toLowerCase();document.querySelectorAll('#pd label').forEach(function(l){if(c&&l.textContent.toLowerCase().indexOf(c.slice(0,5))===0)l.querySelector('input').checked=true});
+})();
+</script></body></html>
